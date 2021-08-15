@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-frontend-app
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: todo-frontend-app
+        tier: frontend
+    spec:
+      containers:
+        - name: todo-frontend
+          image: mustafatoker/todo-frontend:1.0.6
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "64M"
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    app: todo-frontend-app
+    tier: frontend
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+  selector:
+    app: todo-frontend-app
+    tier: frontend
