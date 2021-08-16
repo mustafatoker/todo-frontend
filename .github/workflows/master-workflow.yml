@@ -1,4 +1,4 @@
-name: Frontend Pipeline
+name: Backend Pipeline
 on:
   pull_request:
     branches:
@@ -17,12 +17,13 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Setup Node.js
-      - uses: actions/setup-node@master
-      - run: npm install
-      - run: npm run build --if-present
-      - run: npm run test:unit
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Create Node Environment
+        uses: actions/setup-node@master
+      - run: |
+          npm ci
+          npm run build
   build:
     needs: test
     runs-on: ubuntu-latest
