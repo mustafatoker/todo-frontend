@@ -1,4 +1,4 @@
-name: Backend Pipeline
+name: Frontend Pipeline
 on:
   pull_request:
     branches:
